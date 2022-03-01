@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useReducer } from 'react'
+import Usecontextmain from './component/Usecontextmain';
+
+
+
+function reducer  (state, action){
+  console.log(state,action)
+         switch(action.type){
+           case 'INCREMENT' :
+             return { count: state.count + 1}
+         
+           case 'DECREMENT' :
+             return { count: state.count - 1}
+
+             default : return state
+         
+        }
+}
 
 function App() {
+
+  const [state,dispatch] = useReducer(reducer,{count : 0})
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+    <Usecontextmain/>
+     {state.count}
+    <button onClick={()=>dispatch({type: 'INCREMENT'})}>+</button>
+    <button onClick={()=>dispatch({type: 'DECREMENT'})}>-</button>
     </div>
-  );
+  )
 }
 
 export default App;
