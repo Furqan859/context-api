@@ -2,15 +2,15 @@ import React, { useReducer } from 'react'
 import Usecontextmain from './component/Usecontextmain';
 
 
-
-function reducer  (state, action){
-  console.log(state,action)
-         switch(action.type){
+const initialState = 0;
+const reducer = (state, action)=>{
+         switch(action){
            case 'INCREMENT' :
-             return { count: state.count + 1}
-         
-           case 'DECREMENT' :
-             return { count: state.count - 1}
+             return   state + 1
+         case 'DECREMENT' :
+             return  state- 1
+             case 'reset' : 
+             return   initialState
 
              default : return state
          
@@ -19,13 +19,14 @@ function reducer  (state, action){
 
 function App() {
 
-  const [state,dispatch] = useReducer(reducer,{count : 0})
+  const [state,dispatch] = useReducer(reducer,initialState)
   return (
     <div>
     <Usecontextmain/>
-     {state.count}
-    <button onClick={()=>dispatch({type: 'INCREMENT'})}>+</button>
-    <button onClick={()=>dispatch({type: 'DECREMENT'})}>-</button>
+     {state}
+    <button onClick={()=>dispatch('INCREMENT')}>+</button>
+    <button onClick={()=>dispatch('reset')}>Reset</button>
+    <button onClick={()=>dispatch('DECREMENT')}>-</button>
     </div>
   )
 }
